@@ -111,6 +111,8 @@ export class Props {
    */
   public maxScale?: number = 10;
 
+  public scale?: number = 1;
+
   /**
    * 单击的回调
    */
@@ -174,6 +176,13 @@ export class Props {
   public onSwipeDown?: () => void = () => {
     //
   };
+
+  /**
+   * function that fires when scale changes
+   */
+  public onScaleChange?: (scale?: number) => void = () => {
+    //
+  };  
 }
 
 export class State {

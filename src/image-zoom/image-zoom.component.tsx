@@ -346,6 +346,10 @@ export default class ImageViewer extends React.Component<Props, State> {
                   // 越到下方，缩放越小
                   this.scale = this.scale - diffY / 1000;
                   this.animatedScale.setValue(this.scale);
+
+                  if (this.props.onScaleChange) {
+                    this.props.onScaleChange(this.scale);
+                  }
                 }
               }
             }
@@ -401,6 +405,10 @@ export default class ImageViewer extends React.Component<Props, State> {
               // 开始缩放
               this.scale = zoom;
               this.animatedScale.setValue(this.scale);
+
+              if (this.props.onScaleChange) {
+                this.props.onScaleChange(this.scale);
+              }
 
               // 图片要慢慢往两个手指的中心点移动
               // 缩放 diff
@@ -563,6 +571,19 @@ export default class ImageViewer extends React.Component<Props, State> {
     if (this.props.centerOn) {
       this.centerOn(this.props.centerOn);
     }
+  }
+
+  public shouldComponentUpdate(nextProps: Props) {
+    if (nextProps.scale) {
+      this.scale = nextProps.scale;
+      this.animatedScale.setValue(this.scale);
+      this.positionX = 0;
+      this.animatedPositionX.setValue(this.positionX);
+      this.positionY = 0;
+      this.animatedPositionY.setValue(this.positionY);
+    }
+
+    return true;
   }
 
   public componentWillReceiveProps(nextProps: Props) {
